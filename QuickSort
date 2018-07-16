@@ -1,0 +1,57 @@
+import jeliot.io.*;
+
+public class QSort {
+	private static int exchanges = 0;
+	private static int array[] = {12,9,4,99,120,1,3,10,23,45,75,69,31,88,101,14,29,91,2,0,77};
+	/**
+ 	* @param args
+ 	*/
+	public static void main(String[] args) {
+       	System.out.println("The list before sorting is:");
+       	printlist(array,array.length);
+       	qsort(array,0,array.length-1);
+       	System.out.println("\nThe list after sorting is:");
+       	printlist(array,array.length);
+       	System.out.println("\nThe number of exchanges is: " + exchanges);
+	}
+    
+	public static void swap(int x,int y){
+   	int temp;
+   	temp = array[x];
+   	array[x] = array[y];
+   	array[y] = temp;
+   	exchanges++;
+	}
+   
+	public static int getkeyposition(int i,int j ){
+   	return((i+j) /2);
+	}
+   
+	public static void qsort(int list[],int m,int n){
+   	int key,i,j,k;
+   	if( m < n){
+      	k = getkeyposition(m,n);
+      	swap(m, k);
+      	key = list[m];
+      	i = m+1;
+      	j = n;
+      	while(i <= j){
+         	while((i <= n) && (list[i] <= key))
+                	i++;
+         	while((j >= m) && (list[j] > key))
+                	j--;
+         	if( i < j)
+                	swap(i,j);
+      	}
+      	swap(m,j);
+      	qsort(list,m,j-1);
+      	qsort(list,j+1,n);
+   	}
+	}
+
+	public static void printlist(int list[],int n){
+   	for(int i=0;i<n;i++)
+       	System.out.print(list[i]+ "   ");
+	}
+
+}
