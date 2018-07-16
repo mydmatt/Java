@@ -1,0 +1,40 @@
+import jeliot.io.*;
+
+public class Stack {
+	//top of the stack initially -1 signifying an empty stack
+	public static int tos = -1;
+	//array to implement the stack of size 3
+	public static int stack[] = new int[3]; 
+   
+	public static void main() {
+    	// Pushing three items into the stack
+    	push(2);
+    	push(1);
+    	push(0); //vehicle begins the line
+       
+    	//Popping three items out of the stack
+    	pop(); //First Testing Station
+    	pop(); //Second Testing Station
+    	pop(); //Third Testing Station
+	}
+	public static void push(int a){//method for push operation
+    	if(tos>=2){//checking if the stack is full
+        	System.out.println("Stack overflow");
+        	return;
+    	}
+    	//increasing top of the stack by 1
+ 	   tos++;
+    	//inserting an item to the top of the stack
+    	stack[tos] = a;
+	}
+   
+	public static void pop(){//method for pop operation
+    	if(tos<=-1){//checking if the stack is empty
+        	System.out.println("Stack underflow");
+        	return;
+    	}
+    	//displaying the item being popped
+    	System.out.println("Item popped: " + stack[tos]);
+    	tos--; //decreasing the top of stack by 1
+	}
+}
