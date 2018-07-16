@@ -1,0 +1,132 @@
+import jeliot.io.*;
+import java.util.Scanner;
+
+ /* Class BinarySearchTree */
+ public class BinarySearchTree{
+ 	public static void main(String[] args){                
+    	Scanner scan = new Scanner(System.in);
+    	/* Creating new Binary Search Tree */
+    	BST BSTree = new BST();
+    	System.out.println("Binary Search Tree\n");         
+    	int ch;
+    	do{
+        	System.out.println("Press 1 to Insert and 2 to Search: ");
+        	int choice = scan.nextInt();           
+        	switch (choice){
+        	case 1 :
+            	System.out.println("Enter element to Insert: ");
+            	BSTree.insert( scan.nextInt() );                    
+            	break;                                             
+        	case 2 :
+            	System.out.println("Enter element to Search: ");
+            	System.out.println("Element Found : "+ BSTree.search( scan.nextInt() ));
+            	break;                                            
+        	default :
+            	System.out.println("Invalid Choice!!");
+        	    break;  
+        	}
+
+        	System.out.println("\nPress 1 to continue, anything else to exit: ");
+        	ch = Integer.parseInt(scan.nextLine());                       
+    	} while (ch == 1);    
+	}
+ }
+
+ /* Class BST */
+ class BST {
+ 	private BSTNode root;
+ 	int iterations = 0;
+ 	/* Constructor */
+ 	public BST(){
+     	root = null;
+ 	}
+ 	/* Function to check if tree is empty */
+ 	public boolean isEmpty(){
+     	return root == null;
+ 	}
+ 	/* Functions to insert data */
+ 	public void insert(int data){
+     	root = insert(root, data);
+ 	}
+ 	/* Function to insert data recursively */
+ 	private BSTNode insert(BSTNode node, int data){
+     	if (node == null)
+         	node = new BSTNode(data);
+     	else{
+         	if (data <= node.getData())
+             	node.left = insert(node.left, data);
+         	else
+             	node.right = insert(node.right, data);
+     	}
+     	return node;
+ 	}
+   
+ 	/* Functions to search for an element */
+ 	public boolean search(int val){
+     	iterations = 0;
+     	return search(root, val);
+ 	}
+ 	/* Function to search for an element recursively */
+ 	private boolean search(BSTNode r, int val){
+     	boolean found = false;
+     	while ((r != null) && !found){
+         	int rval = r.getData();
+         	if (val < rval)
+             	r = r.getLeft();
+         	else if (val > rval)
+             	r = r.getRight();
+         	else{
+             	found = true;
+             	break;
+         	}
+         	found = search(r, val);
+         	iterations++;
+     	}
+     	System.out.println("Number of iterations: " + iterations);
+     	return found;
+ 	}
+   
+ }
+
+ /* Class BSTNode */
+ class BSTNode{
+ 	BSTNode left, right;
+ 	int data;
+
+ 	/* No argument Constructor*/
+ 	public BSTNode(){
+     	left = null;
+     	right = null;
+     	data = 0;
+ 	}
+ 	/* Constructor with data argument */
+ 	public BSTNode(int n){
+     	left = null;
+     	right = null;
+     	data = n;
+ 	}
+ 	/* Function to set the left node */
+ 	public void setLeft(BSTNode n){
+     	this.left = n;
+ 	}
+ 	/* Function to set the right node */
+ 	public void setRight(BSTNode n){
+     	this.right = n;
+ 	}
+ 	/* Function to get the left node */
+ 	public BSTNode getLeft(){
+     	return this.left;
+ 	}
+ 	/* Function to get the right node */
+ 	public BSTNode getRight(){
+     	return this.right;
+ 	}
+ 	/* Function to set the data of a node */
+ 	public void setData(int d){
+     	this.data = d;
+ 	}
+ 	/* Function to get node's data */
+ 	public int getData(){
+     	return this.data;
+ 	}    
+ }
